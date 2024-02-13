@@ -5,8 +5,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>{{ $title ?? 'Inventory' }}</title>
       <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/yeti/bootstrap.min.css" rel="stylesheet">
-
-      {{ $styles ?? '' }}
    </head>
    <body>
       {{ $slot }}
