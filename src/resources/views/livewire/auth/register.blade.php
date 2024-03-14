@@ -17,13 +17,24 @@
                                     height="120">
                             </a>
                         </div>
-                        <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
-                        <form wire:submit="login">
+                        <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Create an account</h2>
+                        <form wire:submit="register">
                             <div class="row gy-2 overflow-hidden">
                                 <div class="col-12">
                                     <div class="mb-3">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input id="username" name="form.username" type="text" class="form-control"
+                                            placeholder="John Doe" wire:model="form.username" />
+                                        @error('form.username')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input id="email" type="email" class="form-control"
+                                        <input id="email" name="form.email" type="email" class="form-control"
                                             placeholder="example@email.com" wire:model="form.email" />
                                         @error('form.email')
                                             <small class="text-danger">{{ $message }}</small>
@@ -36,9 +47,36 @@
                                         <div class="input-group input-group-end" x-data="{
                                             isPasswordVisible: false
                                         }">
-                                            <input id="password" type="password" class="form-control"
+                                            <input id="password" name="password" type="password" class="form-control"
                                                 x-bind:type="isPasswordVisible ? 'text' : 'password'"
-                                                wire:model="form.password" />
+                                                wire:model.live="form.password" />
+                                            <span class="input-group-text">
+                                                <a type="button" x-on:click="isPasswordVisible = !isPasswordVisible">
+                                                    <i
+                                                        x-bind:class="isPasswordVisible ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+                                                </a>
+                                            </span>
+
+                                            
+                                        </div>
+                                        @error('form.password')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    
+                                    <livewire:auth.partials.password-strength 
+                                        wire:model="form.password"
+                                    />
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                        <div class="input-group input-group-end" x-data="{
+                                            isPasswordVisible: false
+                                        }">
+                                            <input id="password_confirmation" name="password" type="password" class="form-control"
+                                                x-bind:type="isPasswordVisible ? 'text' : 'password'"
+                                                wire:model="form.password_confirmation" />
                                             <span class="input-group-text">
                                                 <a type="button" x-on:click="isPasswordVisible = !isPasswordVisible">
                                                     <i
@@ -46,40 +84,25 @@
                                                 </a>
                                             </span>
                                         </div>
-                                        @error('form.password')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
                                     </div>
+                                </div>
 
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex gap-2 justify-content-between">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                name="rememberMe" id="rememberMe">
-                                            <label class="form-check-label text-secondary" for="rememberMe">
-                                                Keep me logged in
-                                            </label>
-                                        </div>
-                                        <a href="#!" class="link-primary text-decoration-none">Forgot password?</a>
-                                    </div>
-                                </div>
                                 <div class="col-12">
                                     <div class="d-grid my-3">
                                         <button class="btn btn-primary btn-lg" type="submit"
-                                            wire:loading.attr="disabled">
-                                            <span wire:loading wire:target="login"
+                                            wire:loading.attr="disabled" wire:target="register">
+                                            <span wire:loading wire:target="register"
                                                 class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
-                                            Log in
+                                            Register
                                         </button>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <p class="m-0 text-secondary text-center">
-                                        Don't have an account? 
-                                        <a href="{{ route('register') }}" class="link-primary text-decoration-none" wire:navigate>
-                                            Sign up
+                                        Already have an account? 
+                                        <a href="{{ route('login') }}" class="link-primary text-decoration-none" wire:navigate>
+                                            Sign in
                                         </a>
                                     </p>
                                 </div>
