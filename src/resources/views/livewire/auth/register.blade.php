@@ -24,7 +24,8 @@
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
                                         <input id="username" name="form.username" type="text" class="form-control"
-                                            placeholder="John Doe" wire:model="form.username" />
+                                            placeholder="John Doe" wire:model="form.username" autocomplete="username"/>
+                                            
                                         @error('form.username')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -35,7 +36,8 @@
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input id="email" name="form.email" type="email" class="form-control"
-                                            placeholder="example@email.com" wire:model="form.email" />
+                                            placeholder="example@email.com" wire:model="form.email" autocomplete="off"/>
+
                                         @error('form.email')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -49,16 +51,15 @@
                                         }">
                                             <input id="password" name="password" type="password" class="form-control"
                                                 x-bind:type="isPasswordVisible ? 'text' : 'password'"
-                                                wire:model.live="form.password" />
+                                                wire:model.live="form.password" autocomplete="new-password"/>
                                             <span class="input-group-text">
                                                 <a type="button" x-on:click="isPasswordVisible = !isPasswordVisible">
                                                     <i
                                                         x-bind:class="isPasswordVisible ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
                                                 </a>
-                                            </span>
-
-                                            
+                                            </span> 
                                         </div>
+
                                         @error('form.password')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -76,7 +77,7 @@
                                         }">
                                             <input id="password_confirmation" name="password" type="password" class="form-control"
                                                 x-bind:type="isPasswordVisible ? 'text' : 'password'"
-                                                wire:model="form.password_confirmation" />
+                                                wire:model="form.password_confirmation" autocomplete="new-password"/>
                                             <span class="input-group-text">
                                                 <a type="button" x-on:click="isPasswordVisible = !isPasswordVisible">
                                                     <i

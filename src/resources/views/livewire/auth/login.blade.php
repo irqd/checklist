@@ -24,7 +24,7 @@
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input id="email" type="email" class="form-control"
-                                            placeholder="example@email.com" wire:model="form.email" />
+                                            placeholder="example@email.com" wire:model="form.email" autocomplete="off"/>
                                         @error('form.email')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -38,7 +38,7 @@
                                         }">
                                             <input id="password" type="password" class="form-control"
                                                 x-bind:type="isPasswordVisible ? 'text' : 'password'"
-                                                wire:model="form.password" />
+                                                wire:model="form.password" autocomplete="current-password"/>
                                             <span class="input-group-text">
                                                 <a type="button" x-on:click="isPasswordVisible = !isPasswordVisible">
                                                     <i
