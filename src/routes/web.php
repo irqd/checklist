@@ -23,6 +23,11 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/logout', function () {
+        auth()->logout();
+        return redirect()->route('login');
+    })->name('logout');
+
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
