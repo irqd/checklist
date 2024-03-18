@@ -17,6 +17,11 @@ class Register extends Component
 {   
     public RegisterForm $form;
 
+    public function render()
+    {
+        return view('livewire.auth.register');
+    }
+
     public function register()
     {
         $validated = $this->validate();
@@ -36,10 +41,5 @@ class Register extends Component
         }
 
         return $this->redirect(route('dashboard'), true);
-    }
-
-    public function render()
-    {
-        return view('livewire.auth.register');
     }
 }

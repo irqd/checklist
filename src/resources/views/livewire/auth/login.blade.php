@@ -17,6 +17,28 @@
                                     height="120">
                             </a>
                         </div>
+                        @if($select_email)
+                        <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Recent logins</h2>
+
+                        <ul class="list-group">
+                            @foreach($recent_emails as $email)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <i class="bi bi-person-circle fs-5 me-3"></i>
+                                <a href="#!" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                                    wire:click="loginWithRecentEmail('{{ $email }}')">
+                                    {{ $email }}
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                        
+                        <div class="d-grid my-3">
+                            <button class="btn btn-link text-secondary" wire:click="toggleSelectEmail">
+                                Use another account
+                            </button>
+                        </div>
+                        @else
                         <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
                         <form wire:submit="login">
                             <div class="row gy-2 overflow-hidden">
@@ -84,6 +106,7 @@
                                 </div>
                             </div>
                         </form>
+                        @endif
                     </div>
                 </div>
             </div>
