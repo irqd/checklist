@@ -32,9 +32,14 @@ class Login extends Component
         }
     }
     
-    public function toggleSelectEmail()
+    public function toggleSelectEmail($email = null)
     {
         $this->select_email = !$this->select_email;
+
+        if ($email) {
+            $this->form->email = $email;
+            $this->form->remember = true;
+        }
     }
 
     public function login()

@@ -11,6 +11,16 @@ trait HasRecentEmails
       $recentEmails = $this->getRecentEmails();
 
       if (!in_array($email, $recentEmails)) {
+         // simply add the email to the beginning of the array
+         // if it's not already in the array
+
+         array_unshift($recentEmails, $email);
+      } else {
+         // move the email to the beginning of the array
+         // if it's already in the array
+
+         $key = array_search($email, $recentEmails);
+         array_splice($recentEmails, $key, 1);
          array_unshift($recentEmails, $email);
       }
 
@@ -21,7 +31,8 @@ trait HasRecentEmails
    {
       $cookie = request()->cookie('recent_emails');
 
-      return is_null($cookie) ? [] : json_decode($cookie, true);
+      // get only the recent 5 emails
+      return is_null($cookie) ? [] : array_slice(json_decode($cookie, true), 0, 5);
    }
 
    private function storeRecentEmails($emails)
