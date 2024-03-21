@@ -10,12 +10,26 @@
 
       @yield('styles')
 
-      @vite(['resources/css/theme.css'])
+      @vite(['resources/css/app.css'])
    </head>
    <body>
       <x-feedbacks.toast />
 
-      {{ $slot }}
+      <main class="d-flex justify-content-center align-items-center py-3 py-md-5">
+         <div class="container">
+            <div class="row justify-content-center">
+               <div class="col-12">
+                  <x-layouts.partials.guest-header />
+               </div>
+
+               <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-5">
+                  {{ $slot }}
+               </div>
+            </div>
+         </div>
+      </main>
+
+      <x-layouts.partials.footer />
 
       {{-- copyrights --}}
       <a class="visually-hidden" href="https://www.flaticon.com/free-icons/female" title="female icons">Female icons created by popcornarts - Flaticon</a>
