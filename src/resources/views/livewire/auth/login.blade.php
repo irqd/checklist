@@ -19,7 +19,7 @@
             <ul class="list-group">
                 @foreach($recent_emails as $email)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="#!" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center icon-link icon-link-hover"
+                        <a type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center icon-link icon-link-hover"
                             wire:click="toggleSelectEmail('{{ $email }}')">
                             <div class="d-flex align-items-center gap-3">
                                 <img class="avatar" src="{{ asset('images/user-icon-female.png') }}" alt="User icon">
@@ -108,7 +108,7 @@
                     <div class="col-12">
                         <p class="m-0 text-body-secondary text-center">
                             Don't have an account? 
-                            <a href="{{ route('register') }}" class="link-primary text-decoration-none">
+                            <a href="{{ route('register') }}" class="link-primary text-decoration-none" wire:navigate>
                                 Sign up
                             </a>
                         </p>

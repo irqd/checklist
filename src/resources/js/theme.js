@@ -1,27 +1,29 @@
-// theme toggle
-document.querySelector(".theme-toggle").addEventListener("click", () => {
-   toggleLocalStorage();
-   toggleRootClass();
-});
+document.addEventListener('livewire:navigated', () => {
+   // theme toggle
+   document.querySelector(".theme-toggle").addEventListener("click", () => {
+      toggleLocalStorage();
+      toggleRootClass();
+   });
 
-function toggleRootClass() {
-   const current = document.documentElement.getAttribute("data-bs-theme");
-   const inverted = current == "dark" ? "light" : "dark";
-   document.documentElement.setAttribute("data-bs-theme", inverted);
-}
-
-function toggleLocalStorage() {
-   if (isLight()) {
-      localStorage.removeItem("light");
-   } else {
-      localStorage.setItem("light", "set");
+   function toggleRootClass() {
+      const current = document.documentElement.getAttribute("data-bs-theme");
+      const inverted = current == "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-bs-theme", inverted);
    }
-}
 
-function isLight() {
-   return localStorage.getItem("light");
-}
+   function toggleLocalStorage() {
+      if (isLight()) {
+         localStorage.removeItem("light");
+      } else {
+         localStorage.setItem("light", "set");
+      }
+   }
 
-if (isLight()) {
-   toggleRootClass();
-}
+   function isLight() {
+      return localStorage.getItem("light");
+   }
+
+   if (isLight()) {
+      toggleRootClass();
+   }
+});

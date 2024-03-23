@@ -91,7 +91,7 @@
                 <div class="col-12">
                     <p class="m-0 text-body-secondary text-center">
                         Already have an account? 
-                        <a href="{{ route('login') }}" class="link-primary text-decoration-none">
+                        <a href="{{ route('login') }}" class="link-primary text-decoration-none" wire:navigate>
                             Sign in
                         </a>
                     </p>
