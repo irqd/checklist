@@ -4,6 +4,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Livewire\Apps\Todo\Todo;
 use App\Livewire\Dashboard;
 
 /*
@@ -28,4 +29,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     Route::get('/', Dashboard::class)->name('dashboard');
+    Route::get('/to-do', Todo::class)->name('to-do');
 });

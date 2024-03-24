@@ -3,7 +3,14 @@
         <i class="{{ $icon }} fs-6 pe-2"></i>
         <span>{{ $title }}</span>
     </a>
-    <ul id="{{ $id }}" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+    <ul 
+        id="{{ $id }}" 
+        @class([
+            "sidebar-dropdown list-unstyled collapse",
+            "show" => request()->routeIs(...$routes)
+        ]) 
+        data-bs-parent="#sidebar"
+    >
         @if($routes)
             @foreach($routes as $route)
                 <x-layouts.partials.sidebar.sidebar-item 

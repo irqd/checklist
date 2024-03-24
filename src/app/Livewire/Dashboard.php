@@ -8,14 +8,14 @@ class Dashboard extends Component
 {
     public function render()
     {   
-        // if(url()->previous() === route('login')) {
-        //     $this->dispatch(
-        //         'notify', 
-        //         type: 'success', 
-        //         message: 'Hey, ' . auth()->user()->username . '! Welcome back!'
-        //     );
-        // }
-
+        if(url()->previous() === route('login')) {
+            $this->dispatch(
+                'notify', 
+                type: 'success', 
+                message: 'Hey, ' . auth()->user()->username . '! Welcome back!'
+            );
+        }
+        
         return view('livewire.dashboard');
     }
 }

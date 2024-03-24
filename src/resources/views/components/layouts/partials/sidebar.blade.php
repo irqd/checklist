@@ -15,6 +15,12 @@
 
             <x-layouts.partials.sidebar.sidebar-header title="Apps" />
             
+            <x-layouts.partials.sidebar.sidebar-item 
+                route="to-do" 
+                icon="bi bi-list-check" 
+                title="TO-DO" 
+            />
+
             <x-layouts.partials.sidebar.sidebar-dropdown 
                 id="pages" 
                 icon="bi bi-shop-window" 
@@ -26,7 +32,7 @@
                 ]"
             />
 
-            <x-layouts.partials.sidebar.sidebar-dropdown 
+            {{-- <x-layouts.partials.sidebar.sidebar-dropdown 
                 id="posts" 
                 icon="bi bi-people" 
                 title="Customers" 
@@ -64,7 +70,7 @@
                         ['route' => '', 'title' => 'Page 3'],
                     ]" 
                 />
-            </x-layouts.partials.sidebar.sidebar-dropdown>
+            </x-layouts.partials.sidebar.sidebar-dropdown> --}}
         </ul>
     </div>
 </aside>
