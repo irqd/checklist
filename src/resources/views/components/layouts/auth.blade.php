@@ -18,7 +18,7 @@
             <x-layouts.partials.sidebar />
 
             <div class="main bg-body-tertiary" id="main">
-                <x-layouts.partials.navbar />
+                <x-navigation.navbar />
 
                 <main class="content p-3">
                     <div class="container">

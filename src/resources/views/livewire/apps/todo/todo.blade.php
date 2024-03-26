@@ -1,3 +1,6 @@
 <div>
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
+    <x-navigation.breadcrumb :routes="[
+        ['name' => 'Apps', 'url' => ''],
+        ['name' => 'TO-DO', 'url' => 'to-do']
+    ]" />
 </div>

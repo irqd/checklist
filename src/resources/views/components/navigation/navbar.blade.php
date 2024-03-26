@@ -30,8 +30,8 @@
                         <span class="visually-hidden">New alerts</span>
                     </span>
                 </a>
-                
             </li>
+
             <li class="nav-item">
                 <a class="nav-link link-body-emphasis position-relative" href="#">
                     <i class="bi bi-bell fs-6 fw-semibold text-muted"></i>
@@ -41,6 +41,7 @@
                     </span>
                 </a>
             </li>
+
             <li class="nav-item dropdown">
                 <a href="#" class="nav-icon pe-md-0 d-flex align-items-center" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                     <img src="{{ asset('images/profile.jpg') }}" class="avatar img-fluid rounded-circle" alt="">
@@ -70,7 +71,17 @@
                         </a>
                     </div>
                     <hr>
-                    <button class="btn btn-sm btn-default mt-3 w-100">
+                    <button class="btn btn-sm btn-default mt-3 w-100" x-data="{
+                        logout() {
+                            axios.post('/logout')
+                            .then(() => {
+                                window.location.href = '/';
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                        }
+                    }" x-on:click="logout()">
                         <i class="bi bi-box-arrow-right me-2"></i>
                         <span>Sign out</span>
                     </button>
