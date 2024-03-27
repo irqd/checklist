@@ -1,7 +1,9 @@
 <aside id="sidebar" class="js-sidebar border-end">
     <div class="h-100">
         <div class="sidebar-logo">
-            <a href="/">IRQD</a>
+            <a href="/">
+                <span class="text-primary">Check</span>list
+            </a>
         </div>
         
         <ul class="sidebar-nav d-flex flex-column">
@@ -13,64 +15,20 @@
                 title="Dashboard" 
             />
 
-            <x-layouts.partials.sidebar.sidebar-header title="Apps" />
+            <x-layouts.partials.sidebar.sidebar-header title="Tasks" />
             
             <x-layouts.partials.sidebar.sidebar-item 
-                route="to-do" 
+                route="" 
                 icon="bi bi-list-check" 
                 title="TO-DO" 
             />
 
-            <x-layouts.partials.sidebar.sidebar-dropdown 
-                id="pages" 
-                icon="bi bi-shop-window" 
-                title="Shop" 
-                :routes="[
-                    ['route' => '', 'title' => 'Page 1'],
-                    ['route' => '', 'title' => 'Page 2'],
-                    ['route' => '', 'title' => 'Page 3'],
-                ]"
-            />
+            <x-layouts.partials.sidebar.sidebar-header title="Categories" />
+            
+            <livewire:categories.list-categories />
 
-            {{-- <x-layouts.partials.sidebar.sidebar-dropdown 
-                id="posts" 
-                icon="bi bi-people" 
-                title="Customers" 
-                :routes="[
-                    ['route' => '', 'title' => 'Posts 1'],
-                    ['route' => '', 'title' => 'Posts 2'],
-                    ['route' => '', 'title' => 'Posts 3'],
-                ]"
-            />
 
-            <x-layouts.partials.sidebar.sidebar-dropdown 
-                id="auth" 
-                icon="bi bi-calendar" 
-                title="Calendar" 
-                :routes="[
-                    ['route' => '', 'title' => 'Posts 1'],
-                    ['route' => '', 'title' => 'Posts 2'],
-                    ['route' => '', 'title' => 'Posts 3'],
-                ]"
-            />
-
-            <x-layouts.partials.sidebar.sidebar-header title="Admin" />
-
-            <x-layouts.partials.sidebar.sidebar-dropdown 
-                id="multi"
-                icon="bi bi-person-lock"
-                title="Authorization"
-            >
-                <x-layouts.partials.sidebar.sidebar-dropdown-item 
-                    id="level-1"
-                    title="Level 1"
-                    :routes="[
-                        ['route' => '', 'title' => 'Page 1'],
-                        ['route' => '', 'title' => 'Page 2'],
-                        ['route' => '', 'title' => 'Page 3'],
-                    ]" 
-                />
-            </x-layouts.partials.sidebar.sidebar-dropdown> --}}
+            <x-layouts.partials.sidebar.sidebar-header title="Tags" />
         </ul>
     </div>
 </aside>

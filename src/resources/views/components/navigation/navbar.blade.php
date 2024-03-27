@@ -5,14 +5,11 @@
     
     <!-- search bar -->
     <form class="d-none d-sm-inline-block me-3 my-2 my-md-0 mw-100 position-relative">
-        <div class="d-flex">
-            <input class="form-control form-control-sm me-2" 
-            type="search" 
-            placeholder="Search..." 
-            aria-label="Search">
-            <button class="btn btn-sm btn-subtle" type="submit">
-                <i class="bi bi-search fs-5"></i>
-            </button>
+        <div class="input-group input-group-suffix me-2">
+            <input type="text" class="form-control form-control-sm" placeholder="Search..."/>
+            <span class="input-group-text">
+                <i class="bi bi-search"></i>
+            </span>
         </div>
     </form>
 
