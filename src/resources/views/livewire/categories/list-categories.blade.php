@@ -50,7 +50,7 @@
                 x-transition:leave="transition ease-in duration-75"
                 x-transition:leave-start="opacity-100 transform scale-100"
                 x-transition:leave-end="opacity-0 transform scale-95"
-                style="top: 0; right: 0;"
+                style="top: 12px; right: 12px;"
             >
                 <div class="list-group border-0">
                     <a href="#" class="list-group-item-action rounded d-flex justify-content-between align-items-center p-1">
@@ -59,7 +59,7 @@
                             Edit
                         </small>
                     </a>
-                    <a href="#" class="list-group-item-action rounded d-flex justify-content-between align-items-center p-1">
+                    <a type="button" class="list-group-item-action rounded d-flex justify-content-between align-items-center p-1" wire:click="deleteCategory({{ $category->id }})">
                         <small class="text-danger">
                             <i class="bi bi-trash"></i>
                             Delete

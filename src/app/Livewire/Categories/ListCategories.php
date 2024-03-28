@@ -17,4 +17,12 @@ class ListCategories extends Component
 
         return view('livewire.categories.list-categories', compact('categories'));
     }
+
+    public function deleteCategory($id)
+    {
+        Category::find($id)->delete();
+        
+        $this->dispatch('notify', type: 'success', message: 'Category deleted successfully.');
+        $this->dispatch('refresh-categories');
+    }
 }
