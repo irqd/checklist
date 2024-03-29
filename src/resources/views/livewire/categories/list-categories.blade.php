@@ -1,11 +1,17 @@
 <ul class="list-group border-0 mx-5 ps-1" x-data="{
     activeCategoryId: null,
     add_open:false,
+    update_open:false,
     context_open:false,
     menuPosition: { x: 0, y: 0 },
     longPressTimer: null,
     toggleAddCategory(){
         this.add_open = !this.add_open;
+        this.update_open = false;
+    },
+    toggleUpdateCategory(){
+        this.update_open = !this.update_open;
+        this.add_open = false;
     },
     toggleContext(categoryId){
         if (this.activeCategoryId === categoryId) {
@@ -53,7 +59,7 @@
                 style="top: 12px; right: 12px;"
             >
                 <div class="list-group border-0">
-                    <a href="#" class="list-group-item-action rounded d-flex justify-content-between align-items-center p-1">
+                    <a type="button" class="list-group-item-action rounded d-flex justify-content-between align-items-center p-1" x-on:click="$dispatch('update-category', {id : {{ $category->id }}}), toggleContext()">
                         <small class="text-warning">
                             <i class="bi bi-pencil"></i>
                             Edit
@@ -81,5 +87,14 @@
 
     <li class="p-0 mt-1" x-show="add_open" x-transition>
         <livewire:categories.add-categories />
+    </li>
+
+    <li class="p-0 mt-1" 
+        x-on:update-open="update_open = true, add_open = false" 
+        x-on:update-close="update_open = false"
+        x-show="update_open" 
+        x-transition
+    >
+        <livewire:categories.update-categories x-transition/>
     </li>
 </ul>

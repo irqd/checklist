@@ -5,6 +5,7 @@ namespace App\Livewire\Categories;
 use Livewire\Component;
 use App\Models\Category;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\DB;
 
 class ListCategories extends Component
 {
@@ -20,9 +21,16 @@ class ListCategories extends Component
 
     public function deleteCategory($id)
     {
-        Category::find($id)->delete();
-        
-        $this->dispatch('notify', type: 'success', message: 'Category deleted successfully.');
-        $this->dispatch('refresh-categories');
+        try {
+            DB::transaction(function () use ($id){
+                $category = Category::findOrFail($id);
+                $category->delete();
+
+                $this->dispatch('notify', type: 'success', message: 'Category deleted successfully.');
+                $this->dispatch('refresh-categories');
+            });
+        } catch (\Exception $e) {
+            $this->danger('danger', 'Error deleting category');
+        }
     }
 }
