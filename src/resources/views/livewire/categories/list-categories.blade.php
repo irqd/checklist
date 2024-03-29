@@ -49,6 +49,7 @@
             </a>
 
             <div class="position-absolute card card-body border-0 shadow p-1 z-1"
+                x-cloak
                 x-show="context_open && activeCategoryId === '{{ $category->id }}'"
                 x-transition:enter="transition ease-out duration-100"
                 x-transition:enter-start="opacity-0 transform scale-95"
@@ -85,11 +86,12 @@
         </a>
     </li>
 
-    <li class="p-0 mt-1" x-show="add_open" x-transition>
+    <li class="p-0 mt-1" x-cloak x-show="add_open" x-transition>
         <livewire:categories.add-categories />
     </li>
 
-    <li class="p-0 mt-1" 
+    <li class="p-0 mt-1"
+        x-cloak 
         x-on:update-open="update_open = true, add_open = false" 
         x-on:update-close="update_open = false"
         x-show="update_open" 

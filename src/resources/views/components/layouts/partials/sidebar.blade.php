@@ -25,10 +25,15 @@
 
             <x-layouts.partials.sidebar.sidebar-header title="Categories" />
             
-            <livewire:categories.list-categories />
-
-
+            <li class="sidebar-item">
+                <livewire:categories.list-categories />
+            </li>
+        
             <x-layouts.partials.sidebar.sidebar-header title="Tags" />
+
+            <li class="sidebar-item">
+                <livewire:tags.list-tags />
+            </li>
         </ul>
     </div>
 </aside>

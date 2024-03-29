@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+[x-cloak] { 
+    display: none !important; 
+}
+
 *,
 ::after,
 ::before {
