@@ -34,10 +34,10 @@ class AddTags extends Component
 
             $this->reset();
             $this->dispatch('notify', type: 'success', message: 'Tag added successfully.');
+            $this->dispatch('add-close');
             $this->dispatch('refresh-tags');
         } catch (\Exception $e) {
-            $this->dispatch('notify', type: 'danger', message: 'Failed to add tag.'
-            );
+            $this->dispatch('notify', type: 'danger', message: 'Failed to add tag.');
         }
     }
 }

@@ -5,7 +5,13 @@
             <input type="text" class="form-control form-control-sm" wire:model="name"/>
             
         </div>
-        @error('name') <small class="text-danger" style="font-size: 10px">{{ $message }}</small> @enderror
+
+        @error('name') 
+            <small class="text-danger" style="font-size: 10px">
+                {{ $message }}
+            </small> 
+        @enderror
+        
         <div class="d-flex gap-1">
             <button type="button" class="btn btn-outline-default mt-1 d-flex" style="
             --bs-btn-padding-y: 0.05rem; 

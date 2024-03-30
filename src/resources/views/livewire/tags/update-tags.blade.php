@@ -16,7 +16,7 @@
             --bs-btn-padding-y: 0.05rem; 
             --bs-btn-padding-x: 0.5rem; 
             --bs-btn-font-size: 0.7rem;"
-            x-on:click.prevent="toggleUpdateCategory()"
+            x-on:click.prevent="toggleUpdateTag()"
             >
                 Cancel
             </button>

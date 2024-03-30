@@ -34,10 +34,10 @@ class AddCategories extends Component
 
             $this->reset();
             $this->dispatch('notify', type: 'success', message: 'Category added successfully.');
+            $this->dispatch('add-close');
             $this->dispatch('refresh-categories');
         } catch (\Exception $e) {
-            $this->dispatch('notify', type: 'danger', message: 'Failed to add category.'
-            );
+            $this->dispatch('notify', type: 'danger', message: 'Failed to add category.');
         }
     }
 }
