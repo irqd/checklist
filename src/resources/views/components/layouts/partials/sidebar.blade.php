@@ -18,9 +18,9 @@
             <x-layouts.partials.sidebar.sidebar-header title="Tasks" />
             
             <x-layouts.partials.sidebar.sidebar-item 
-                route="" 
+                route="tasks.index" 
                 icon="bi bi-list-check" 
-                title="TO-DO" 
+                title="My Tasks" 
             />
 
             <x-layouts.partials.sidebar.sidebar-header title="Categories" />
