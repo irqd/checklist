@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->enum('priority', ['low', 'medium', 'high'])->default('low');
-            $table->enum('status', ['todo', 'in_progress', 'done'])->default('todo');
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->dateTime('due_date')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->softDeletes();

@@ -1,11 +1,11 @@
 <?php
 
+use App\Livewire\Dashboard;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
+use App\Livewire\Tasks\ListTasks;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Livewire\Dashboard;
-use App\Livewire\Tasks\Tasks;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', Dashboard::class)->name('dashboard');
 
     Route::prefix('tasks')->group(function () {
-        Route::get('/', Tasks::class)->name('tasks.index');
+        Route::get('/', ListTasks::class)->name('tasks.index');
     });
 });

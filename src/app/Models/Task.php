@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\Priority;
+use App\Enums\Status;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Category;
@@ -22,6 +24,8 @@ class Task extends Model
     protected $casts = [
         'due_date' => 'datetime',
         'completed_at' => 'datetime',
+        'priority' => Priority::class,
+        'status' => Status::class,
     ];
 
     public function user()

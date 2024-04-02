@@ -4,10 +4,10 @@ namespace App\Livewire\Tasks;
 
 use Livewire\Component;
 
-class Tasks extends Component
+class ListTasks extends Component
 {
     public function render()
     {
-        return view('livewire.tasks.tasks');
+        return view('livewire.tasks.list-tasks');
     }
 }
