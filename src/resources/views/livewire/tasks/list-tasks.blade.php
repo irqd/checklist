@@ -100,6 +100,7 @@
 
             <div class="d-flex justify-content-center">
                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-default">All</button>
                     <button type="button" class="btn btn-default active">Today</button>
                     <button type="button" class="btn btn-default">This Week</button>
                     <button type="button" class="btn btn-default">This Month</button>
@@ -238,28 +239,69 @@
     </div>
 </div>
 
-@scripts
+@push('scripts')
 <script data-navigate-once>
-    initTomSelect = (element) => {
-        new TomSelect(element, {
+    const tomSelectInstances = {};
+    const tags = document.querySelectorAll('.tom-select');
+    const modal = new bootstrap.Modal('#taskModal');
+    
+    function initTomSelect(element, is_multiple) {
+        const tomSelect = new TomSelect(element, {
             plugins: ['remove_button'],
-            create: true,
             valueField: 'id',
             labelField: 'name',
             searchField: 'name',
-            // options: [
-            //     { id: 1, name: 'One' },
-            //     { id: 2, name: 'Two' },
-            //     { id: 3, name: 'Three' },
-            // ]
+            render: {
+                option: function(data, escape) {
+                    return `
+                        <div>
+                            <i class="bi bi-circle-fill" style="color: ${data.hexColor}"></i>
+                            ${escape(data.name)}
+                        </div>
+                    `;
+                },
+                item: function(data, escape) {
+                    const color = isTextLight(data.hexColor) ? 'text-dark' : 'text-light';
+
+                    if (is_multiple) {
+                        return `
+                            <div class="${color}" style="background-color: ${data.hexColor};">
+                                ${escape(data.name)}
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div>
+                                <i class="bi bi-circle-fill me-1" style="color: ${data.hexColor}"></i>
+                                ${escape(data.name)}
+                            </div>
+                        `;
+                    }
+                }
+            }
         });
+
+        tomSelectInstances[element.id] = tomSelect;
     }
 
+    function resetItems() {
+        for (const id in tomSelectInstances) {
+            if (Object.hasOwnProperty.call(tomSelectInstances, id)) {
+                const tomSelect = tomSelectInstances[id];
+                tomSelect.clear();
+            }
+        }
+    }
+
+    tags.forEach(tag => {
+        const is_multiple = tag.hasAttribute('multiple');
+        initTomSelect(tag, is_multiple);
+    });
+
     document.addEventListener('livewire:navigated', () => {
-        const tags = document.querySelectorAll('.tom-select');
-        tags.forEach(tag => {
-            initTomSelect(tag);
+        Livewire.on('reset-form', () => {
+            modal.hide();
         });
     });
 </script>
-@endscripts
+@endpush

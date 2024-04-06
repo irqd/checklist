@@ -4,25 +4,32 @@ namespace App\Livewire\Forms\Tasks;
 
 use Livewire\Form;
 use App\Models\Tag;
+use App\Models\Task;
 use App\Enums\Status;
 use App\Enums\Priority;
 use App\Models\Category;
-use App\Models\Task;
-use Livewire\Attributes\Validate;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\DB;
 
 class TaskForm extends Form
 {
     public ?Task $task;
 
-    public ?string $title;
-    public ?string $description;
+    public ?string $title = '';
+    public ?string $description = '';
     public ?Priority $priority = Priority::LOW;
     public ?Status $status = Status::PENDING;
     public ?int $category_id;
-    public array $tags = [];
-    public ?string $due_date;
-    public array $sub_tasks = [];
+    public ?array $tags = [];
+    public ?string $due_date = null;
+    public ?array $sub_tasks = [];
+
+    public function resetForm()
+    {
+        $this->reset();
+        $this->resetErrorBag();
+    }
 
     public function setTask(Task $task)
     {
@@ -34,9 +41,10 @@ class TaskForm extends Form
         $this->status = $task->status;
         $this->category_id = $task->category_id;
         $this->tags = $task->tags->pluck('id')->toArray();
-        $this->due_date = $task->due_date ? $task->due_date->format('Y-m-d') : '';
+        $this->due_date = $task->due_date;
         $this->sub_tasks = $task->subTasks->map(function ($subTask) {
             return [
+                'is_editing' => false,
                 'name' => $subTask->title,
                 'priority' => $subTask->priority,
                 'status' => $subTask->status,
@@ -45,18 +53,22 @@ class TaskForm extends Form
     }
 
     public function store()
-    {
+    {   
         $this->validate();
 
-        $task = Task::create(
-            $this->only(['title', 'description', 'priority', 'status', 'category_id', 'due_date'])
-        );
+        DB::transaction(function () {
+            $task = Task::create(
+                $this->only('title', 'description', 'priority', 'status', 'category_id', 'due_date')
+            );
 
-        $task->tags()->attach($this->tags);
+            $task->tags()->attach($this->tags);
+    
+            if(!empty($this->sub_tasks)) {
+                $task->subTasks()->createMany($this->sub_tasks);
+            }
+        });
 
-        $task->subTasks()->createMany($this->sub_tasks);
-
-        $this->reset();
+        // $this->resetForm();
     }
 
     public function rules()
@@ -64,14 +76,37 @@ class TaskForm extends Form
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'priority' => ['required', 'string', Rule::enum(Priority::class)],
-            'status' => ['required', 'string', Rule::enum(Status::class)],
-            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
+            'priority' => ['required', Rule::enum(Priority::class)],
+            'status' => ['required', Rule::enum(Status::class)],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
             'tags.*' => ['nullable', 'integer', 'exists:tags,id'],
             'due_date' => ['nullable', 'date'],
-            'sub_tasks.*.name' => ['nullable', 'string', 'max:255'],
-            'sub_tasks.*.priority' => ['nullable', 'string', Rule::enum(Priority::class)],
-            'sub_tasks.*.status' => ['nullable', 'string', Rule::enum(Status::class)],
+            'sub_tasks.*.title' => [
+                Rule::requiredIf(fn () => ! empty($this->sub_tasks)),
+                'string', 
+                'max:255'
+            ],
+            'sub_tasks.*.priority' => [
+                Rule::requiredIf(fn () => ! empty($this->sub_tasks)),
+                Rule::enum(Priority::class)
+            ],
+            'sub_tasks.*.status' => [
+                Rule::requiredIf(fn () => ! empty($this->sub_tasks)),
+                Rule::enum(Status::class)
+            ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'sub_tasks.*.title.required' => 'The sub task title field is required.',
+            'sub_tasks.*.title.string' => 'The sub task title must be a string.',
+            'sub_tasks.*.title.max' => 'The sub task title may not be greater than 255 characters.',
+            'sub_tasks.*.priority.required' => 'The sub task priority field is required.',
+            'sub_tasks.*.priority.enum' => 'The sub task priority must be one of: ' . implode(', ', Priority::toArray()),
+            'sub_tasks.*.status.required' => 'The sub task status field is required.',
+            'sub_tasks.*.status.enum' => 'The sub task status must be one of: ' . implode(', ', Status::toArray()),
         ];
     }
 }

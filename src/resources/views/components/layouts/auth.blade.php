@@ -40,6 +40,19 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" data-navigate-once></script>
         <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js" data-navigate-once></script>
+
+        <script data-navigate-once>
+            isTextLight = (hex_color) => {
+                hex_color = hex_color.replace('#', '');
+                var r = parseInt(hex_color.substring(0,2),16);
+                var g = parseInt(hex_color.substring(2,4),16);
+                var b = parseInt(hex_color.substring(4,6),16);
+                var brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+                return brightness > 155;
+            }
+        </script>
+
         @yield('scripts')
+        @stack('scripts')
     </body>
 </html>

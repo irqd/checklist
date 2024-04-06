@@ -38,14 +38,6 @@
     handleMouseUp() {
         clearTimeout(this.longPressTimer);
     },
-    isLight(hex_color) {
-        hex_color = hex_color.replace('#', '');
-        var r = parseInt(hex_color.substring(0,2),16);
-        var g = parseInt(hex_color.substring(2,4),16);
-        var b = parseInt(hex_color.substring(4,6),16);
-        var brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-        return brightness > 155;
-    }
 }" x-on:click.away="handleClickAway($event)">
     <div class="position-relative">
         @foreach($tags as $tag)
@@ -54,7 +46,7 @@
                 --bs-btn-padding-x: 0.5rem; 
                 --bs-btn-font-size: 0.8rem;
                 background-color: {{ $tag->hex_color }};"
-                x-bind:class="{ 'text-dark': isLight('{{ $tag->hex_color }}'), 'text-white': !isLight('{{ $tag->hex_color }}') }"
+                x-bind:class="{ 'text-dark': isTextLight('{{ $tag->hex_color }}'), 'text-white': !isTextLight('{{ $tag->hex_color }}') }"
                 x-on:contextmenu.prevent="toggleContext('{{ $tag->id }}', $event)"
                 x-on:mousedown="handleMouseDown($event, '{{ $tag->id }}')"
                 x-on:mouseup="handleMouseUp()"
