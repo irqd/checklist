@@ -1,31 +1,51 @@
-<div class="card card-body p-3 bg-body" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#taskModal">
+<div class="card card-body p-3 bg-body h-100" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#taskModal">
     <h6 class="card-title fs-xs fw-bold text-truncate mb-0">
-        <i class="bi bi-circle-fill text-primary"></i>
+        <i class="bi bi-circle-fill" style="color: {{ $task->category->hex_color }}"></i>
         {{ $task->title }}
     </h6>
 
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <span class="badge text-bg-success px-2">
+            <span @class([
+                'badge px-2',
+                'text-bg-success' => $task->priority->value == 'low',
+                'text-bg-warning' => $task->priority->value == 'medium',
+                'text-bg-danger' => $task->priority->value == 'high',
+            ])>
                 {{ $task->priority }}
             </span>
-            <span class="badge text-bg-warning px-2">
+            <span @class([
+                'badge px-2',
+                'text-bg-warning' => $task->status->value == 'pending',
+                'text-bg-primary' => $task->status->value == 'in_progress',
+                'text-bg-success' => $task->status->value == 'completed',
+            ])>
                 {{ $task->status }}
             </span>
         </div>
-        <div class="fs-xs">
-            <i class="bi bi-clock"></i>
-            {{ $task->due_date->format('d/m/Y h:i A') }}
-        </div>
+
+        @if(isset($task->due_date))
+            <div class="fs-xs">
+                <i class="bi bi-clock"></i>
+                {{ $task->due_date->format('d/m/Y h:i A') }}
+            </div>
+        @endif
     </div>
 
-    <div class="fs-xs mt-3">
-        Subtasks: {{ $completedSubTasks }}/{{ $totalSubTasks }} completed
+    @if($totalSubTasks > 0)
+        <div class="fs-xs mt-3">
+            Subtasks: {{ $completedSubTasks }}/{{ $totalSubTasks }} completed
 
-        <div class="progress mt-1">
-            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $subTasksPercentage }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress mt-1">
+                <div class="progress-bar bg-primary" role="progressbar" 
+                style="width: {{ $subTasksPercentage }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
         </div>
-    </div>
+    @else
+        <div class="alert alert-primary fs-xs fw-bold mt-3 px-2 py-1 m-0">
+            No subtasks
+        </div>
+    @endif
 
     <div class="mt-3 mb-1">
         <i class="bi bi-tags"></i>
@@ -35,7 +55,12 @@
     <div class="d-flex justify-content-start gap-1">
         @foreach ($task->tags as $tag)
             <span class="badge px-2 py-1" 
-                style="background-color: {{ $tag->hex_color }}">
+                style="background-color: {{ $tag->hex_color }}"
+                x-bind:class="{ 
+                    'text-dark': isTextLight('{{ $tag->hex_color }}'), 
+                    'text-white': !isTextLight('{{ $tag->hex_color }}') 
+                }"
+            >
                 {{ $tag->name }}
             </span>
         @endforeach

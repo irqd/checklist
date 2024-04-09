@@ -96,7 +96,7 @@
             </div>
 
             <div class="row mt-3 g-1">
-                @forelse($tasks as $task)
+                @forelse($tasks as $index => $task)
                     <div class="col-12 col-lg-6 col-xl-4">
                         <livewire:tasks.task-item :task="$task" :key="$task->id" />
                     </div>
@@ -104,23 +104,31 @@
                     <div class="col-12">
                         <div class="alert alert-primary" role="alert">
                             <div class="d-flex gap-4">
-                            <span>
-                                <i class="bi bi-info-circle icon-primary"></i>
-                            </span>
-                            <div class="d-flex flex-column gap-2">
-                                <h6 class="mb-0 fw-bold">
-                                    No tasks found
-                                </h6>
-                                <p class="mb-0">
-                                    You have no tasks to display. Start by creating a new task.
-                                </p>
-                            </div>
+                                <span>
+                                    <i class="bi bi-info-circle icon-primary"></i>
+                                </span>
+                                <div class="d-flex flex-column gap-2">
+                                    <h6 class="mb-0 fw-bold">
+                                        No tasks found
+                                    </h6>
+                                    <p class="mb-0">
+                                        You have no tasks to display. Start by creating a new task.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforelse
             </div>
         </div>
+
+        @if ($tasks->hasPages())
+            <div class="col-12">
+                <div class="d-flex justify-content-end">
+                    {{ $tasks->onEachSide(1)->links() }}
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 

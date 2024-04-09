@@ -42,6 +42,7 @@ class UpdateTags extends Component
 
             $this->dispatch('notify', type: 'success', message: 'Tag updated successfully.');
             $this->dispatch('refresh-tags');
+            $this->dispatch('refresh-tasks');
             $this->dispatch('update-close');
         } catch (\Exception $e) {
             $this->dispatch('notify', type: 'danger', message: 'Failed to update tag.');

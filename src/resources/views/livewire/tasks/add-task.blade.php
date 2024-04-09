@@ -293,7 +293,7 @@
             <button type="button" class="btn btn-subtle" data-bs-dismiss="modal">
                Cancel
             </button>
-            <button type="submit" class="btn btn-primary" x-on:click="$wire.save()">
+            <button type="submit" class="btn btn-primary" wire:click="save">
                <span wire:loading wire:target="save" class="spinner-border spinner-border-sm" role="status"
                   aria-hidden="true"></span>
                Save

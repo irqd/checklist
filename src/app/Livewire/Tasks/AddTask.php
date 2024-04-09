@@ -63,12 +63,13 @@ class AddTask extends Component
 
         try {
             $this->form->store();
-        } catch (\Exception $e) {
-            $this->dispatch('notify', type: 'danger', message: 'Something went wrong. Please try again.' . $e->getMessage());
-        }
 
-        $this->dispatch('notify', type: 'success', message: 'New task added successfully');
-        $this->dispatch('reset-form');
+            $this->dispatch('notify', type: 'success', message: 'New task added successfully');
+            $this->dispatch('refresh-tasks');
+            $this->dispatch('reset-form');
+        } catch (\Exception $e) {
+            $this->dispatch('notify', type: 'danger', message: 'Something went wrong. Please try again.');
+        }
     }
 
     public function resetForm()
