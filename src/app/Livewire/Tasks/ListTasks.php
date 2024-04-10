@@ -18,7 +18,7 @@ class ListTasks extends Component
             ->where('user_id', auth()->id())
             ->whereNull('task_id')
             ->latest()
-            ->paginate(6);
+            ->paginate(15);
 
         return view('livewire.tasks.list-tasks', compact('tasks'));
     }

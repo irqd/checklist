@@ -1,6 +1,7 @@
 <div class="col-12 col-lg-6 col-xl-4">
     <div class="card card-body p-3 bg-body h-100" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#taskModal">
         <h6 class="card-title fs-xs fw-bold text-truncate mb-0">
+            {{-- {{ dd($task) }} --}}
             <i class="bi bi-circle-fill" style="color: {{ $task->category->hex_color }}"></i>
             {{ $task->title }}
         </h6>

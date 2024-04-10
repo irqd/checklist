@@ -97,9 +97,8 @@
 
             <div class="row mt-3 g-1">
                 @forelse($tasks as $index => $task)
-                    <div class="col-12 col-lg-6 col-xl-4">
-                        <livewire:tasks.task-item :task="$task" :key="$task->id" />
-                    </div>
+                    {{-- <livewire:tasks.task-item :task="$task" :key="$task->id" /> --}}
+                    <x-tasks.task-item :task="$task" :key="$task->id" />
                 @empty
                     <div class="col-12">
                         <div class="alert alert-primary" role="alert">
@@ -124,8 +123,8 @@
 
         @if ($tasks->hasPages())
             <div class="col-12">
-                <div class="d-flex justify-content-end">
-                    {{ $tasks->onEachSide(1)->links() }}
+                <div class="d-flex justify-content-end align-items-center">
+                    {{ $tasks->links() }}
                 </div>
             </div>
         @endif
