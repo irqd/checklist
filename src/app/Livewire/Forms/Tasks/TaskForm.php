@@ -67,8 +67,6 @@ class TaskForm extends Form
                 $task->subTasks()->createMany($this->sub_tasks);
             }
         });
-
-        // $this->resetForm();
     }
 
     public function rules()

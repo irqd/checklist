@@ -5,6 +5,7 @@
     ]" />
 
     <livewire:tasks.add-task />
+    <livewire:tasks.update-task />
 
     <div class="row justify-content-center align-items-start g-5">
         <div class="col-12 col-md-4 col-xl-2">
@@ -191,6 +192,11 @@
     });
 
     document.addEventListener('livewire:navigated', () => {
+        // tags.forEach(tag => {
+        //     const is_multiple = tag.hasAttribute('multiple');
+        //     initTomSelect(tag, is_multiple);
+        // });
+
         Livewire.on('reset-form', () => {
             modal.hide();
         });

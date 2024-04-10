@@ -54,7 +54,7 @@
         </div>
 
         <div class="d-flex justify-content-start gap-1">
-            @foreach ($task->tags as $tag)
+            @forelse($task->tags as $tag)
                 <span class="badge px-2 py-1" 
                     style="background-color: {{ $tag->hex_color }}"
                     x-bind:class="{ 
@@ -64,7 +64,9 @@
                 >
                     {{ $tag->name }}
                 </span>
-            @endforeach
+            @empty
+                <span class="badge px-2 py-1 bg-light text-dark">No tags</span>
+            @endforelse
         </div>
     </div>
 </div>
