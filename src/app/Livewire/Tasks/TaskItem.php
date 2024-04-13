@@ -3,35 +3,30 @@
 namespace App\Livewire\Tasks;
 
 use App\Enums\Status;
-use Livewire\Attributes\Reactive;
+use App\Models\Task;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
+use Livewire\Attributes\Modelable;
 
 class TaskItem extends Component
 {   
-    #[Reactive]
-    public $task;
+    #[Modelable]
+    public Task $task;
 
-    public int $totalSubTasks;
-    public int $completedSubTasks;
-    public int $subTasksPercentage;
-
-    public function mount($task)
-    {
-        $this->totalSubTasks = $task->subtasks->count();
-        $this->completedSubTasks = $task->subtasks->where('status', Status::COMPLETED)->count();
-        $this->subTasksPercentage = $this->computeSubTasksPercentage();
-    }
-
-    public function computeSubTasksPercentage()
-    {
-        $totalSubTasks = $this->totalSubTasks;
-        $completedSubTasks = $this->completedSubTasks;
-       
-        return $totalSubTasks > 0 ? ($completedSubTasks / $totalSubTasks) * 100 : 0;
-    }
-
+    #[On('refresh-tags')]
+    #[On('refresh-categories')]
+    #[On('refresh-task-{task.id}')] 
     public function render()
     {
-        return view('livewire.tasks.task-item');
+        $totalSubTasks =  $this->task->subtasks->count();
+        $completedSubTasks = $this->task->subtasks->where('status', Status::COMPLETED)->count();
+        $subTasksPercentage = $totalSubTasks > 0 ? ($completedSubTasks / $totalSubTasks) * 100 : 0;
+
+        return view('livewire.tasks.task-item', compact(
+            'totalSubTasks', 
+            'completedSubTasks', 
+            'subTasksPercentage'
+        ));
     }
 }

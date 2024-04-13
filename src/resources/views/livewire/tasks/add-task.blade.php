@@ -1,9 +1,9 @@
-<div wire:ignore.self class="modal modal-lg fade" tabindex="-1" id="taskModal" aria-labelledby="taskModalLabel"
+<div wire:ignore.self class="modal modal-lg fade" tabindex="-1" id="newTaskModal" aria-labelledby="newTaskModalLabel"
     aria-hidden="true">
    <div class="modal-dialog modal-fullscreen-sm-down">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="taskModalLabel">Task:</h5>
+            <h5 class="modal-title" id="newTaskModalLabel">Task:</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
 
@@ -305,11 +305,11 @@
 
 @script
    <script>
-      const taskModal = document.getElementById('taskModal');
+      const newTaskModal = document.getElementById('newTaskModal');
 
-      taskModal.addEventListener('hidden.bs.modal', event => {
+      newTaskModal.addEventListener('hidden.bs.modal', event => {
          $wire.resetForm();
-         resetItems();
+         resetSelectValues();
       })
    </script>
 @endscript

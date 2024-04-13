@@ -16,9 +16,9 @@ class ListTasks extends Component
     {
         $tasks = Task::with('subtasks', 'category', 'tags')
             ->where('user_id', auth()->id())
-            ->whereNull('task_id')
+            ->whereNot('is_subtask', true)
             ->latest()
-            ->paginate(15);
+            ->paginate(9);
 
         return view('livewire.tasks.list-tasks', compact('tasks'));
     }

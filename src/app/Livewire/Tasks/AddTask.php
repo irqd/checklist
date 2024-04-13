@@ -31,7 +31,9 @@ class AddTask extends Component
     public function addSubTask()
     {
         $this->form->sub_tasks[] = [
+            'id' => null,
             'is_editing' => true,
+            'is_subtask' => true,
             'title' => null,
             'priority' => Priority::LOW,
             'status' => Status::PENDING,
@@ -60,13 +62,13 @@ class AddTask extends Component
     public function save()
     {
         $this->form->validate();
-
+        
         try {
             $this->form->store();
 
             $this->dispatch('notify', type: 'success', message: 'New task added successfully');
             $this->dispatch('refresh-tasks');
-            $this->dispatch('reset-form');
+            $this->dispatch('hide-task-form', 'add-task');
         } catch (\Exception $e) {
             $this->dispatch('notify', type: 'danger', message: 'Something went wrong. Please try again.');
         }

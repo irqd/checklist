@@ -80,7 +80,7 @@
         <div class="col-12 col-md-8 col-xl-10">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <x-miscellaneous.simple-clock />
-                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newTaskModal">
                     <i class="bi bi-plus-lg"></i>
                     New Task
                 </button>
@@ -98,8 +98,8 @@
 
             <div class="row mt-3 g-1">
                 @forelse($tasks as $index => $task)
-                    {{-- <livewire:tasks.task-item :task="$task" :key="$task->id" /> --}}
-                    <x-tasks.task-item :task="$task" :key="$task->id" />
+                    <livewire:tasks.task-item :task="$task" :key="$task->id" />
+                    {{-- <x-tasks.task-item :task="$task" :key="$task->id" /> --}}
                 @empty
                     <div class="col-12">
                         <div class="alert alert-primary" role="alert">
@@ -135,9 +135,29 @@
 @push('scripts')
 <script data-navigate-once>
     const tomSelectInstances = {};
-    const tags = document.querySelectorAll('.tom-select');
-    const modal = new bootstrap.Modal('#taskModal');
     
+    function resetSelectValues() {
+        for (const id in tomSelectInstances) {
+            if (Object.hasOwnProperty.call(tomSelectInstances, id)) {
+                const tomSelect = tomSelectInstances[id];
+                tomSelect.clear();
+            }
+        }
+    }
+
+    function setSelectValues(id, value) {
+        const tomSelect = tomSelectInstances[id];
+        tomSelect.setValue(value, true);
+    }
+</script>
+@endpush
+
+@script
+<script>
+    const tags = document.querySelectorAll('.tom-select');
+    const newTaskModal = new bootstrap.Modal('#newTaskModal');
+    const updateTaskModal = new bootstrap.Modal('#updateTaskModal');
+
     function initTomSelect(element, is_multiple) {
         const tomSelect = new TomSelect(element, {
             plugins: ['remove_button'],
@@ -177,29 +197,13 @@
         tomSelectInstances[element.id] = tomSelect;
     }
 
-    function resetItems() {
-        for (const id in tomSelectInstances) {
-            if (Object.hasOwnProperty.call(tomSelectInstances, id)) {
-                const tomSelect = tomSelectInstances[id];
-                tomSelect.clear();
-            }
-        }
-    }
-
     tags.forEach(tag => {
         const is_multiple = tag.hasAttribute('multiple');
         initTomSelect(tag, is_multiple);
     });
 
-    document.addEventListener('livewire:navigated', () => {
-        // tags.forEach(tag => {
-        //     const is_multiple = tag.hasAttribute('multiple');
-        //     initTomSelect(tag, is_multiple);
-        // });
-
-        Livewire.on('reset-form', () => {
-            modal.hide();
-        });
+    Livewire.on('hide-task-form', (event) => {
+        event == 'add-task' ? newTaskModal.hide() : updateTaskModal.hide();
     });
 </script>
-@endpush
+@endscript

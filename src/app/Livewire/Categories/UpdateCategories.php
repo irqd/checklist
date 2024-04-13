@@ -42,7 +42,7 @@ class UpdateCategories extends Component
 
             $this->dispatch('notify', type: 'success', message: 'Category updated successfully.');
             $this->dispatch('refresh-categories');
-            $this->dispatch('refresh-tasks');
+            // $this->dispatch('refresh-category', $this->category->id);
             $this->dispatch('update-close');
         } catch (\Exception $e) {
             $this->dispatch('notify', type: 'danger', message: 'Failed to update category.');

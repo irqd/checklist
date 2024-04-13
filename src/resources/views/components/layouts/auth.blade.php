@@ -6,6 +6,9 @@
         <title>{{ $title ?? 'TODO' }}</title>
 
         <link href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.2.0/dist/css/fastbootstrap.min.css" rel="stylesheet" integrity="sha256-V6lu+OdYNKTKTsVFBuQsyIlDiRWiOmtC8VQ8Lzdm2i4=" crossorigin="anonymous">
+        {{-- <link href="
+        https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/united/bootstrap.min.css
+        " rel="stylesheet"> --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
 

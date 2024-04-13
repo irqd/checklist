@@ -100,7 +100,7 @@
                      <div class="mb-3" >
                         <div wire:ignore>
                            <label class="form-label fw-bold">Category</label>
-                           <select class="tom-select" aria-label="Category select" placeholder="Select category..." wire:model="form.category_id">
+                           <select class="tom-select update-category" aria-label="Category select" placeholder="Select category..." wire:model="form.category_id">
                               <option value="">Select category...</option>
                               @foreach ($categories as $category)
                                  <option value="{{ $category->id }}" data-hex-color="{{ $category->hex_color }}">
@@ -118,7 +118,7 @@
                      <div class="mb-3">
                         <div wire:ignore>
                            <label class="form-label fw-bold">Tags</label>
-                           <select class="tom-select" placeholder="Select tags..."
+                           <select class="tom-select update-tags" placeholder="Select tags..."
                               aria-label="Tags select" autocomplete="off" multiple wire:model="form.tags">
                               <option value="">Select tags...</option>
                               @foreach ($tags as $tag)
@@ -198,21 +198,21 @@
                                           <div>
                                              <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio"
-                                                   value="pending" wire:model="form.sub_tasks.{{ $index }}.status" />
+                                                   value="pending" wire:model="form.sub_tasks.{{ $index }}.status" wire:change="checkSubTaskProgress" />
                                                 <label class="form-check-label" for="inlineRadio11">
                                                    Pending
                                                 </label>
                                              </div>
                                              <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio"
-                                                   value="in_progress" wire:model="form.sub_tasks.{{ $index }}.status" />
+                                                   value="in_progress" wire:model="form.sub_tasks.{{ $index }}.status" wire:change="checkSubTaskProgress" />
                                                 <label class="form-check-label" for="inlineRadio22">
                                                    In Progress
                                                 </label>
                                              </div>
                                              <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio"
-                                                   value="completed" wire:model="form.sub_tasks.{{ $index }}.status" />
+                                                   value="completed" wire:model="form.sub_tasks.{{ $index }}.status" wire:change="checkSubTaskProgress" />
                                                 <label class="form-check-label" for="inlineRadio33">
                                                    Completed
                                                 </label>
@@ -305,11 +305,23 @@
 
 @script
    <script>
-      const taskModal = document.getElementById('taskModal');
+      const updateTaskModal = document.getElementById('updateTaskModal');
 
-      taskModal.addEventListener('hidden.bs.modal', event => {
-         $wire.resetForm();
-         resetItems();
-      })
+      // taskModal.addEventListener('hidden.bs.modal', event => {
+      //    $wire.resetForm();
+      //    resetItems();
+      // })
+
+      updateTaskModal.addEventListener('shown.bs.modal', event => {
+         const category_id = $wire.form.category_id;
+         const tags = $wire.form.tags;
+
+         // get the select element id of the category
+         const categorySelect = updateTaskModal.querySelector('.update-category');
+         setSelectValues(categorySelect.id, category_id);
+
+         const tagsSelect = updateTaskModal.querySelector('.update-tags');
+         setSelectValues(tagsSelect.id, tags);
+      });
    </script>
 @endscript

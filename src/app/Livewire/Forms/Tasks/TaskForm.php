@@ -44,8 +44,10 @@ class TaskForm extends Form
         $this->due_date = $task->due_date;
         $this->sub_tasks = $task->subTasks->map(function ($subTask) {
             return [
+                'id' => $subTask->id,
                 'is_editing' => false,
-                'name' => $subTask->title,
+                'is_subtask' => true,
+                'title' => $subTask->title,
                 'priority' => $subTask->priority,
                 'status' => $subTask->status,
             ];
@@ -54,8 +56,6 @@ class TaskForm extends Form
 
     public function store()
     {   
-        $this->validate();
-
         DB::transaction(function () {
             $task = Task::create(
                 $this->only('title', 'description', 'priority', 'status', 'category_id', 'due_date')
@@ -65,6 +65,35 @@ class TaskForm extends Form
     
             if(!empty($this->sub_tasks)) {
                 $task->subTasks()->createMany($this->sub_tasks);
+            }
+        });
+    }
+
+    public function update()
+    {
+        DB::transaction(function () {
+            $this->due_date == "" ? $this->due_date = null : $this->due_date;
+
+            $this->task->update(
+                $this->only('title', 'description', 'priority', 'status', 'category_id', 'due_date')
+            );
+
+            $this->task->tags()->sync($this->tags);
+            
+            // filters out sub tasks with null id
+            $ids = collect($this->sub_tasks)->pluck('id')->filter(function ($id) {
+                return !is_null($id);
+            })->toArray();
+
+            // deletes the subtasks that are not in the ids array
+            $this->task->subTasks()->whereNotIn('id', $ids)->delete();
+
+            // updates or creates the subtasks array
+            foreach ($this->sub_tasks as $subTask) {
+                $this->task->subTasks()->updateOrCreate(
+                    ['id' => $subTask['id']],
+                    $subTask
+                );
             }
         });
     }
