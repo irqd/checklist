@@ -12,6 +12,7 @@ class ListTasks extends Component
     use WithPagination;
 
     public string $status = 'pending';
+    public string $priority = 'low';
 
     #[On('refresh-tasks')]
     public function render()
@@ -24,6 +25,13 @@ class ListTasks extends Component
                 }
 
                 return $query->where('status', $status);
+            })
+            ->when($this->priority, function ($query, $priority) {
+                if($this->priority == 'all') {
+                    return $query;
+                }
+
+                return $query->where('priority', $priority);
             })
             ->whereNot('is_subtask', true)
             ->latest()

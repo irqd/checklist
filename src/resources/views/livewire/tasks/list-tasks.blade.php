@@ -10,42 +10,12 @@
     <div class="row justify-content-center align-items-start g-5">
         <div class="col-12 col-md-4 col-xl-2">
             <h6 class="fs-xs fw-bold">Status</h6>
-
             <livewire:tasks.filters.task-status wire:model.live="status"/>
-            
+
             <hr>
 
             <h6 class="fs-xs fw-bold">Priority</h6>
-            <div 
-                class="btn-group-vertical btn-group-sm w-100" 
-                role="group" 
-                aria-label="Basic example"
-            >
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded active">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">All</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">Low</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">Medium</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">High</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-            </div>
+            <livewire:tasks.filters.task-priority wire:model.live="priority"/>
         </div>
         
         <div class="col-12 col-md-8 col-xl-10">
