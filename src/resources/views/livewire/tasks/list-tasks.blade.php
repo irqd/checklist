@@ -11,37 +11,8 @@
         <div class="col-12 col-md-4 col-xl-2">
             <h6 class="fs-xs fw-bold">Status</h6>
 
-            <div 
-                class="btn-group-vertical btn-group-sm w-100" 
-                role="group" 
-                aria-label="Basic example"
-            >
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded active">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">All</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">Pending</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">In Progress</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-                <button type="button" class="btn btn-outline-default border-0 mb-1 rounded">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="ms-2">Completed</span>
-                        <span class="badge bg-primary px-2 py-1">3</span>
-                    </div>
-                </button>
-            </div>
-
+            <livewire:tasks.filters.task-status wire:model.live="status"/>
+            
             <hr>
 
             <h6 class="fs-xs fw-bold">Priority</h6>
@@ -99,7 +70,6 @@
             <div class="row mt-3 g-1">
                 @forelse($tasks as $index => $task)
                     <livewire:tasks.task-item :task="$task" :key="$task->id" />
-                    {{-- <x-tasks.task-item :task="$task" :key="$task->id" /> --}}
                 @empty
                     <div class="col-12">
                         <div class="alert alert-primary" role="alert">
