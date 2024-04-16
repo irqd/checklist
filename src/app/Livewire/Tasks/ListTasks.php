@@ -82,7 +82,7 @@ class ListTasks extends Component
                     return $query;
                 }
 
-                return $query->whereBetween('created_at', [$this->from, $this->to]);
+                return $query->whereBetween('due_date', [$this->from, $this->to]);
             })
             ->whereNot('is_subtask', true)
             ->latest()
