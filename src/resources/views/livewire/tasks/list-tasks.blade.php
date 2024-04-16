@@ -36,6 +36,9 @@
                             <input type="date" class="form-control" wire:model.live="from">
                             <span class="input-group-text">to</span>
                             <input type="date" class="form-control" wire:model.live="to">
+                            <button class="btn btn-primary btn-sm" wire:click="clearDateFilter">
+                                Clear
+                            </button>
                         </div>
                     @endif
                 </div>

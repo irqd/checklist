@@ -14,13 +14,12 @@ class ListTasks extends Component
     public string $status = 'pending';
     public string $priority = 'low';
 
-    public string $dateRange = '';
+    public string $dateRange = 'today';
     public string $from = '';
     public string $to = '';
 
     public function mount()
     {
-        $this->dateRange = 'today';
         $this->updatedDateRange();
     }
 
@@ -52,6 +51,11 @@ class ListTasks extends Component
                 $this->to = now()->format('Y-m-d');
                 break;
         }
+    }
+
+    public function clearDateFilter()
+    {
+        $this->reset('from', 'to');
     }
 
     #[On('refresh-tasks')]
