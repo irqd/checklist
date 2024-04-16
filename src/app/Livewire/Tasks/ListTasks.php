@@ -14,6 +14,46 @@ class ListTasks extends Component
     public string $status = 'pending';
     public string $priority = 'low';
 
+    public string $dateRange = '';
+    public string $from = '';
+    public string $to = '';
+
+    public function mount()
+    {
+        $this->dateRange = 'today';
+        $this->updatedDateRange();
+    }
+
+    public function updatedDateRange()
+    {
+        switch($this->dateRange) {
+            case 'all':
+                $this->from = '';
+                $this->to = '';
+                break;
+            case 'today':
+                $this->from = now()->format('Y-m-d');
+                $this->to = now()->format('Y-m-d');
+                break;
+            case 'this_week':
+                $this->from = now()->startOfWeek()->format('Y-m-d');
+                $this->to = now()->endOfWeek()->format('Y-m-d');
+                break;
+            case 'this_month':
+                $this->from = now()->startOfMonth()->format('Y-m-d');
+                $this->to = now()->endOfMonth()->format('Y-m-d');
+                break;
+            case 'custom':
+                $this->from = '';
+                $this->to = '';
+                break;
+            default:
+                $this->from = now()->format('Y-m-d');
+                $this->to = now()->format('Y-m-d');
+                break;
+        }
+    }
+
     #[On('refresh-tasks')]
     public function render()
     {
@@ -32,6 +72,13 @@ class ListTasks extends Component
                 }
 
                 return $query->where('priority', $priority);
+            })
+            ->when($this->from && $this->to, function ($query) {
+                if($this->dateRange == 'all') {
+                    return $query;
+                }
+
+                return $query->whereBetween('created_at', [$this->from, $this->to]);
             })
             ->whereNot('is_subtask', true)
             ->latest()

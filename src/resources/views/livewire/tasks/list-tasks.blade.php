@@ -27,13 +27,17 @@
                 </button>
             </div>
 
-            <div class="d-flex justify-content-center">
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-default">All</button>
-                    <button type="button" class="btn btn-default active">Today</button>
-                    <button type="button" class="btn btn-default">This Week</button>
-                    <button type="button" class="btn btn-default">This Month</button>
-                    <button type="button" class="btn btn-default">Custom</button>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <livewire:tasks.filters.task-date wire:model.live="dateRange"/>
+                
+                <div>
+                    @if($dateRange == 'custom')
+                        <div class="input-group input-group-sm mt-2">
+                            <input type="date" class="form-control" wire:model.live="from">
+                            <span class="input-group-text">to</span>
+                            <input type="date" class="form-control" wire:model.live="to">
+                        </div>
+                    @endif
                 </div>
             </div>
 
