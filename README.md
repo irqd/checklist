@@ -25,3 +25,6 @@ Checklist is a simple task management application built using Laravel and Livewi
 - **Reactive/Modelable Properties:** Livewire components can have reactive properties that can be updated in real-time. This allows you to create dynamic interfaces that respond to user input or changes in the application state.
 
 ## 3. Sample Screenshot
+
+![sample_app](https://github.com/irqd/checklist/assets/61367853/6676bfe6-6ff8-45e6-9c55-395453ad6dc7)
+
