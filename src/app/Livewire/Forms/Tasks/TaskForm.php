@@ -107,7 +107,7 @@ class TaskForm extends Form
             'status' => ['required', Rule::enum(Status::class)],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'tags.*' => ['nullable', 'integer', 'exists:tags,id'],
-            'due_date' => ['nullable', 'date'],
+            'due_date' => ['required', 'date'],
             'sub_tasks.*.title' => [
                 Rule::requiredIf(fn () => ! empty($this->sub_tasks)),
                 'string', 

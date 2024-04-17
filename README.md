@@ -23,3 +23,5 @@ Checklist is a simple task management application built using Laravel and Livewi
 - **SPA Navigation:** Livewire is capable of creating SPA like applications by using its navigation features. Instead of reloading the entire page, it updates the page via AJAX requests.
 
 - **Reactive/Modelable Properties:** Livewire components can have reactive properties that can be updated in real-time. This allows you to create dynamic interfaces that respond to user input or changes in the application state.
+
+## 3. Sample Screenshot
