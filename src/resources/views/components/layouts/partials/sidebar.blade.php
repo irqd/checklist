@@ -7,14 +7,6 @@
         </div>
         
         <ul class="sidebar-nav d-flex flex-column">
-            <x-layouts.partials.sidebar.sidebar-header title="Home" />
-
-            <x-layouts.partials.sidebar.sidebar-item 
-                route="dashboard" 
-                icon="bi bi-speedometer2" 
-                title="Dashboard" 
-            />
-
             <x-layouts.partials.sidebar.sidebar-header title="Tasks" />
             
             <x-layouts.partials.sidebar.sidebar-item 

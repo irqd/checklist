@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\Dashboard;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Tasks\ListTasks;
@@ -27,10 +26,5 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
-
-    Route::get('/', Dashboard::class)->name('dashboard');
-
-    Route::prefix('tasks')->group(function () {
-        Route::get('/', ListTasks::class)->name('tasks.index');
-    });
+    Route::get('/', ListTasks::class)->name('tasks.index');
 });

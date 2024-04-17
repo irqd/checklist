@@ -61,6 +61,14 @@ class ListTasks extends Component
     #[On('refresh-tasks')]
     public function render()
     {
+        if(url()->previous() === route('login')) {
+            $this->dispatch(
+                'notify', 
+                type: 'success', 
+                message: 'Hey, ' . auth()->user()->username . '! Welcome back!'
+            );
+        }
+
         $tasks = Task::with('subtasks', 'category', 'tags')
             ->where('user_id', auth()->id())
             ->when($this->status, function ($query, $status) {
