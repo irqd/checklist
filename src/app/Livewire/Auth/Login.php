@@ -53,7 +53,7 @@ class Login extends Component
         {
             $this->updateRecentEmails($this->form->email);
 
-            return $this->redirect(route('dashboard'), true);
+            return $this->redirect(route('tasks.index'), true);
         }
 
         return $this->dispatch('notify', type: 'danger', message: 'Invalid credentials');
