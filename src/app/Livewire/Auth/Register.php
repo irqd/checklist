@@ -40,6 +40,6 @@ class Register extends Component
             return $this->dispatch('notify', type: 'danger', message: 'Something went wrong during registration. Please try again.');
         }
 
-        return $this->redirect(route('dashboard'), true);
+        return $this->redirect(route('tasks.index'), true);
     }
 }
